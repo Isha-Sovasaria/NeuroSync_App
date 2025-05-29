@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import './HomePage.css';
 import dolphinImg from './assets/dolphin.png';
-import logoImg from './logo.png';
+import logoImg from './assets/NeuroSync_logo.png';
 
 const EMOTIONS = [
   { label: 'Happy',    emoji: '😊' },
   { label: 'Sad',      emoji: '😢' },
   { label: 'Stressed', emoji: '😬' },
-//   { label: 'Sleepy',   emoji: '😴' },
   { label: 'Tired',    emoji: '😫' },
   { label: 'Excited',  emoji: '🤩' },
-//   { label: 'Nervous',  emoji: '😬' },
   { label: 'Annoyed',  emoji: '😠' },
 ];
 
@@ -23,19 +21,35 @@ export default function HomePage({ userName = 'Friend' }) {
     // TODO: send to your backend/api here
   };
 
+  const goChat = () => {
+    // replace with your chat route or external URL
+    window.location.href = '/chat';
+  };
+
+  const goProfile = () => {
+    // replace with your profile route
+    window.location.href = '/profile';
+  };
+
   return (
     <div className="home-page">
       <header className="nav">
-        {/* <img src={dolphinImg} alt="NeuroSync logo" className="logo" /> */}
+        {/* NeuroSync logo on the left */}
         <img src={logoImg} className="logo-large" alt="NeuroSync" />
-        <nav>
+
+        {/* Centered navigation links */}
+        <nav className="nav-links">
           <a href="#mood">Mood Map</a>
           <a href="#meditate">Guided Meditation</a>
           <a href="#journal">Daily Journal</a>
           <a href="#forum">Discussion Forum</a>
           <a href="#help">Get Help</a>
-          <button className="profile-btn">My Profile</button>
         </nav>
+
+        {/* Profile button on the right */}
+        <button className="profile-btn" onClick={goProfile}>
+          My Profile
+        </button>
       </header>
 
       <main>
@@ -44,7 +58,10 @@ export default function HomePage({ userName = 'Friend' }) {
             Hey there <strong>{userName}</strong>!<br/>
             How are you feeling today?
           </div>
-          <img src={dolphinImg} alt="Dolphin mascot" className="dolphin" />
+          <img 
+            src={dolphinImg} 
+            alt="Dolphin mascot" 
+            className="dolphin" />
         </div>
 
         <div className="emotions-grid">
@@ -61,7 +78,7 @@ export default function HomePage({ userName = 'Friend' }) {
         </div>
 
         {selected && (
-          <button className="chat-btn">
+          <button className="chat-btn" oncClick={goChat}>
             Chat With Molly
           </button>
         )}
