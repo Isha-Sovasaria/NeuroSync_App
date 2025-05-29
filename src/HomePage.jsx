@@ -54,14 +54,18 @@ export default function HomePage({ userName = 'Friend' }) {
 
       <main>
         <div className="hero">
+          {/* dolphin on the left now */}
+          <img
+            src={dolphinImg}
+            alt="Dolphin mascot"
+            className="dolphin"
+          />
+
+          {/* speech bubble still centered next to it */}
           <div className="speech-bubble">
-            Hey there <strong>{userName}</strong>!<br/>
+            Hey there <strong>{userName}</strong>!<br />
             How are you feeling today?
           </div>
-          <img 
-            src={dolphinImg} 
-            alt="Dolphin mascot" 
-            className="dolphin" />
         </div>
 
         <div className="emotions-grid">
@@ -77,11 +81,9 @@ export default function HomePage({ userName = 'Friend' }) {
           ))}
         </div>
 
-        {selected && (
-          <button className="chat-btn" oncClick={goChat}>
+        <button className="chat-btn" oncClick={goChat}>
             Chat With Molly
           </button>
-        )}
       </main>
     </div>
   );
