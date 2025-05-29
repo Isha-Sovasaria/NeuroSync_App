@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './HomePage.css';
 import dolphinImg from './assets/dolphin.png';
+import logoImg from './logo.png';
 
 const EMOTIONS = [
   { label: 'Happy',    emoji: '😊' },
@@ -25,7 +26,8 @@ export default function HomePage({ userName = 'Friend' }) {
   return (
     <div className="home-page">
       <header className="nav">
-        <img src={dolphinImg} alt="NeuroSync logo" className="logo" />
+        {/* <img src={dolphinImg} alt="NeuroSync logo" className="logo" /> */}
+        <img src={logoImg} className="logo-large" alt="NeuroSync" />
         <nav>
           <a href="#mood">Mood Map</a>
           <a href="#meditate">Guided Meditation</a>
