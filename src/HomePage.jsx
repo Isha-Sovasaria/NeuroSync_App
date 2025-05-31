@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './HomePage.css';
 import dolphinImg from './assets/clear_dolphin.png';
 import logoImg from './assets/app_logo.png';
+import bgImg from './assets/waves_background.png';
 
 const EMOTIONS = [
   { label: 'Happy',    emoji: '😊' },
@@ -99,7 +100,15 @@ export default function HomePage({ userName = 'Friend' }) {
         </button>
       </header>
 
-      <main>
+      <main
+        style={{
+          backgroundImage: `url(${bgImg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          minHeight: 'calc(100vh - 85px)' // adjust 70px to your nav height
+        }}
+      >
 
         {/* ===== Quote-of-the-day Banner ===== */}
         {todayQuote.text && (
