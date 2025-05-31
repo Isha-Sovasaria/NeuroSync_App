@@ -14,19 +14,19 @@ const EMOTIONS = [
 
 export default function HomePage({ userName = 'Friend' }) {
   const [selected, setSelected] = useState(null);
-//   const [quote, setQuote] = useState({ q: '', a: '' });
+  const [quote, setQuote] = useState({ q: '', a: '' });
 
-//   useEffect(() => {
-//     fetch('https://zenquotes.io/api/today')
-//       .then(res => res.json())
-//       .then(data => {
-//         // API returns an array with one element
-//         if (Array.isArray(data) && data[0]) {
-//           setQuote({ q: data[0].q, a: data[0].a });
-//         }
-//       })
-//       .catch(err => console.error('Quote fetch error:', err));
-//   }, []);
+  useEffect(() => {
+    fetch('https://zenquotes.io/api/today/')
+      .then(res => res.json())
+      .then(data => {
+        console.log('ZenQuotes data:', data);
+        if (Array.isArray(data) && data[0]) {
+          setQuote({ q: data[0].q, a: data[0].a });
+        }
+      })
+      .catch(err => console.error('Quote fetch error:', err));
+  }, []);
 
   const handleClick = (emotion) => {
     setSelected(emotion);
@@ -66,13 +66,12 @@ export default function HomePage({ userName = 'Friend' }) {
       </header>
 
       <main>
-        {/* daily quote section
         {quote.q && (
           <div className="quote-section">
             “{quote.q}”
             <span className="quote-author">— {quote.a}</span>
           </div>
-        )} */}
+        )}
 
         <div className="hero">
           {/* dolphin on the left now */}

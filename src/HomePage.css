@@ -137,12 +137,12 @@
     font-size: 1.25rem;
     cursor: pointer;
   }
-/* 
-  .quote-section {
+
+.quote-section {
     max-width: 800px;
     margin: 1.5rem auto;
     padding: 1rem 1.5rem;
-    background: #acd1f0;
+    background: #f0f8ff;
     border-left: 4px solid #6eaed5;
     font-style: italic;
     font-size: 1.25rem;
@@ -155,4 +155,5 @@
     font-weight: 600;
     text-align: right;
     color: #555;
-  } */
+  }
+  
