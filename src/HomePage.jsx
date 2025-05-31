@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './HomePage.css';
 import dolphinImg from './assets/clear_dolphin.png';
 import logoImg from './assets/app_logo.png';
-import bgImg from './assets/waves_background.png';
+import bgImg from './assets/lightocean.png';
 
 const EMOTIONS = [
   { label: 'Happy',    emoji: '😊' },
@@ -18,7 +18,7 @@ export default function HomePage({ userName = 'Friend' }) {
 
   // Holds the list of quotes fetched from the Hugging Face dataset
   const [allQuotes, setAllQuotes] = useState([]);
-  // Holds the single quote object we’ll display today
+  // Holds the single quote object we'll display today
   const [todayQuote, setTodayQuote] = useState({ text: '', author: '' });
 
   useEffect(() => {
@@ -62,7 +62,6 @@ export default function HomePage({ userName = 'Friend' }) {
     setTodayQuote(chosen);
   }
 
-
   const handleClick = (emotion) => {
     setSelected(emotion);
     console.log(`📝 User feels: ${emotion}`);
@@ -83,9 +82,10 @@ export default function HomePage({ userName = 'Friend' }) {
     <div className="home-page">
       <header className="nav">
         {/* NeuroSync logo on the left */}
-        <img src={logoImg} className="logo-large" alt="NeuroSync" />
+        <div className="logo-container">
+          <img src={logoImg} className="logo-large" alt="NeuroSync" />
+        </div>
 
-        {/* Centered navigation links */}
         <nav className="nav-links">
           <a href="#mood">Mood Map</a>
           <a href="#meditate">Guided Meditation</a>
@@ -94,30 +94,21 @@ export default function HomePage({ userName = 'Friend' }) {
           <a href="#help">Get Help</a>
         </nav>
 
-        {/* Profile button on the right */}
-        <button className="profile-btn" onClick={goProfile}>
-          My Profile
-        </button>
+        <div className="profile-container">
+          <button className="profile-btn" onClick={goProfile}>
+            My Profile
+          </button>
+        </div>
       </header>
 
-      <main
-        style={{
-          backgroundImage: `url(${bgImg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          minHeight: 'calc(100vh - 85px)' // adjust 70px to your nav height
-        }}
-      >
-
+      <main className="main-content">
         {/* ===== Quote-of-the-day Banner ===== */}
         {todayQuote.text && (
           <section className="quote-section">
-            {todayQuote.text}
-            <span className="quote-author">— {todayQuote.author}</span>
+            <div className="quote-text">{todayQuote.text}</div>
+            <div className="quote-author">— {todayQuote.author}</div>
           </section>
         )}
-
 
         <div className="hero">
           {/* dolphin on the left now */}
@@ -146,9 +137,9 @@ export default function HomePage({ userName = 'Friend' }) {
           ))}
         </div>
 
-        <button className="chat-btn" oncClick={goChat}>
-            Chat With Molly
-          </button>
+        <button className="chat-btn" onClick={goChat}>
+          Chat With Molly
+        </button>
       </main>
     </div>
   );

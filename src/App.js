@@ -3,7 +3,7 @@ import HomePage from './HomePage';
 import './App.css';        // optional, just for CRA’s default styles
 
 function App() {
-  const name = 'Alex';
+  const name = 'user';
   return <HomePage userName={name} />;
 }
 
