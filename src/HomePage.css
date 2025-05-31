@@ -93,7 +93,8 @@
 }
 
 .dolphin {
-    width: 350px;
+    margin-top: 2rem;
+    width: 370px;
     animation: bobUp 3s ease-in-out infinite alternate;
 }
 
@@ -139,13 +140,13 @@
   }
   
   .quote-section {
-    max-width: 800px;
+    max-width: 920px;
     margin: 1rem auto;               /* center horizontally, slight vertical gap */
     padding: 1rem 1.5rem;
     background-color: #f0f8ff;       /* very light blue */
     border-left: 4px solid #6eaed5;  /* highlight bar on left */
     font-style: italic;
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     line-height: 1.4;
     text-align: center;
     border-radius: 4px;
@@ -153,8 +154,9 @@
   
   .quote-author {
     display: block;
-    margin-top: 0.5rem;
+    margin-top: 0rem;
     font-weight: 600;
     text-align: right;
-    color: #555;
+    font-size: 1rem;
+    color: #999999;
   }

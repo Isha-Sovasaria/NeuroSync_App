@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './HomePage.css';
-import dolphinImg from './assets/dolphin.png';
-import logoImg from './assets/NeuroSync_logo.png';
+import dolphinImg from './assets/clear_dolphin.png';
+import logoImg from './assets/app_logo.png';
 
 const EMOTIONS = [
   { label: 'Happy',    emoji: '😊' },
@@ -104,12 +104,12 @@ export default function HomePage({ userName = 'Friend' }) {
         {/* ===== Quote-of-the-day Banner ===== */}
         {todayQuote.text && (
           <section className="quote-section">
-            “{todayQuote.text}”
+            {todayQuote.text}
             <span className="quote-author">— {todayQuote.author}</span>
           </section>
         )}
 
-        
+
         <div className="hero">
           {/* dolphin on the left now */}
           <img
