@@ -137,18 +137,20 @@
     font-size: 1.25rem;
     cursor: pointer;
   }
-
-.quote-section {
+  
+  .quote-section {
     max-width: 800px;
-    margin: 1.5rem auto;
+    margin: 1rem auto;               /* center horizontally, slight vertical gap */
     padding: 1rem 1.5rem;
-    background: #f0f8ff;
-    border-left: 4px solid #6eaed5;
+    background-color: #f0f8ff;       /* very light blue */
+    border-left: 4px solid #6eaed5;  /* highlight bar on left */
     font-style: italic;
     font-size: 1.25rem;
     line-height: 1.4;
     text-align: center;
+    border-radius: 4px;
   }
+  
   .quote-author {
     display: block;
     margin-top: 0.5rem;
@@ -156,4 +158,3 @@
     text-align: right;
     color: #555;
   }
-  

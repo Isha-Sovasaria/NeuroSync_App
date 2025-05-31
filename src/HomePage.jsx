@@ -14,19 +14,53 @@ const EMOTIONS = [
 
 export default function HomePage({ userName = 'Friend' }) {
   const [selected, setSelected] = useState(null);
-  const [quote, setQuote] = useState({ q: '', a: '' });
+
+  // Holds the list of quotes fetched from the Hugging Face dataset
+  const [allQuotes, setAllQuotes] = useState([]);
+  // Holds the single quote object we’ll display today
+  const [todayQuote, setTodayQuote] = useState({ text: '', author: '' });
 
   useEffect(() => {
-    fetch('https://zenquotes.io/api/today/')
-      .then(res => res.json())
-      .then(data => {
-        console.log('ZenQuotes data:', data);
-        if (Array.isArray(data) && data[0]) {
-          setQuote({ q: data[0].q, a: data[0].a });
+    fetch(
+      'https://datasets-server.huggingface.co/rows?dataset=asuender%2Fmotivational-quotes&config=quotes&split=train&offset=0&length=100'
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        // The API returns an object; the quotes are in data.rows
+        // Each row has a `row` field containing a `quote` and an `author`
+        if (data && Array.isArray(data.rows)) {
+          const quotesArray = data.rows.map((entry) => {
+            return {
+              text: entry.row.quote,
+              author: entry.row.author
+            };
+          });
+          setAllQuotes(quotesArray);
+
+          // 2️⃣ Once we have the full array, pick a deterministic "quote of the day"
+          pickTodaysQuote(quotesArray);
         }
       })
-      .catch(err => console.error('Quote fetch error:', err));
+      .catch((err) => console.error('❌ Failed to fetch quotes:', err));
   }, []);
+
+  // 3️⃣ Helper: pick one quote from the array based on current day
+  function pickTodaysQuote(quotesArray) {
+    if (quotesArray.length === 0) return;
+
+    // Compute day-of-year (0-based)
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const diff = now - startOfYear; // milliseconds since start of year
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay); // e.g. Jan 1 => 1, Jan 2 => 2, etc.
+
+    // Use modulo to pick an index in [0 .. quotesArray.length-1]
+    const index = dayOfYear % quotesArray.length;
+    const chosen = quotesArray[index];
+    setTodayQuote(chosen);
+  }
+
 
   const handleClick = (emotion) => {
     setSelected(emotion);
@@ -66,13 +100,16 @@ export default function HomePage({ userName = 'Friend' }) {
       </header>
 
       <main>
-        {quote.q && (
-          <div className="quote-section">
-            “{quote.q}”
-            <span className="quote-author">— {quote.a}</span>
-          </div>
+
+        {/* ===== Quote-of-the-day Banner ===== */}
+        {todayQuote.text && (
+          <section className="quote-section">
+            “{todayQuote.text}”
+            <span className="quote-author">— {todayQuote.author}</span>
+          </section>
         )}
 
+        
         <div className="hero">
           {/* dolphin on the left now */}
           <img
