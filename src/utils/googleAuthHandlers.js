@@ -2,7 +2,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
 import { setUsername, setPassword, setTokens } from '../store/authSlice';
 
-export const handleGoogleSignIn = async (dispatch, setError) => {
+export const handleGoogleSignIn = async (dispatch, setError,navigate) => {
   setError(null);
   const provider = new GoogleAuthProvider();
 
@@ -20,7 +20,7 @@ export const handleGoogleSignIn = async (dispatch, setError) => {
       'auth',
       JSON.stringify({ username: user.email, accessToken, refreshToken })
     );
-   console.log("Sucess");
+    navigate('/homepage');
   } catch (err) {
     setError(err.message);
     return { success: false };

@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUserWithEmailAndPassword} from 'firebase/auth';
 import { auth } from '../firebase';
-import {
-  setUsername as setUsernameAction,
-  setPassword as setPasswordAction,
-  setTokens,
-} from '../store/authSlice';
 
 import { Link } from 'react-router-dom';
 import '../StylingAndLayout/LoginAndSignUp.css';
@@ -14,7 +9,8 @@ import '../StylingAndLayout/LoginAndSignUp.css';
 import { handleGoogleSignIn } from '../utils/googleAuthHandlers';
 import GoogleSignInButton from '../Components/GoogleSignInButton';
 import LeftLogo from '../Components/LeftLogo';
-
+import { signOut, sendEmailVerification } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
@@ -23,11 +19,15 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/;
   function isValidPassword(pw) {
     return passwordRegex.test(pw);
   }
+  const handleGoogleClick = () => {
+    handleGoogleSignIn(dispatch, setError, navigate); // pass it in
+  };
   const handleSubmit = async e => {
     e.preventDefault();
     setError(null);
@@ -36,17 +36,22 @@ export default function SignUp() {
       setError("Passwords do not match");
       return;
     }
+    if (!isValidPassword(password)) {
+      setError(
+        'Password must be at least 8 characters, include uppercase, lowercase, and a special character.'
+      );
+      return;
+    }
 
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      const accessToken = await user.getIdToken();
-      const refreshToken = user.refreshToken;
-
-      dispatch(setUsernameAction(email));
-      dispatch(setPasswordAction(password));
-      dispatch(setTokens({ accessToken, refreshToken }));
-      localStorage.setItem('auth', JSON.stringify({ username: email, accessToken, refreshToken }));
-      // TODO: Redirect to protected area
+      await sendEmailVerification(user);
+      await signOut(auth);
+      navigate('/', {
+        state: {
+          info: '✅ Verification email sent. Please check your inbox and click the link before logging in.',
+        },
+      });
     } catch (err) {
       setError(err.message);
     }
@@ -128,7 +133,7 @@ export default function SignUp() {
           <button type="submit" className="btn primary">Create Account</button>
         </form>
 
-       <GoogleSignInButton onClick={handleGoogleSignIn}/>
+       <GoogleSignInButton onClick={handleGoogleClick}/>
 
         <div className="divider"><span>or</span></div>
 

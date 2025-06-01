@@ -13,23 +13,38 @@ import {
 } from '../store/authSlice';
 import { handleGoogleSignIn } from '../utils/googleAuthHandlers';
 import LeftLogo from '../Components/LeftLogo';
-
+import { signOut} from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import '../StylingAndLayout/LoginAndSignUp.css';
 import GoogleSignInButton from '../Components/GoogleSignInButton';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function LoginAndSignUp() {
+export default function Login() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const signupInfo = location.state?.info || '';
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
-  const dispatch = useDispatch();
+  const handleGoogleClick = () => {
+    handleGoogleSignIn(dispatch, setError, navigate); // pass it in
+  };
+
 
   const handleSubmit = async e => {
     e.preventDefault();
     setError(null);
     try {
       const { user } = await signInWithEmailAndPassword(auth, username, password);
+      await user.reload();
+      if (!user.emailVerified) {
+        await signOut(auth);
+        setError('🚫 Please verify your email before logging in.');
+        return;
+      }
       const accessToken = await user.getIdToken();
       const refreshToken = user.refreshToken;
 
@@ -37,6 +52,7 @@ export default function LoginAndSignUp() {
       dispatch(setPasswordAction(password));
       dispatch(setTokens({ accessToken, refreshToken }));
       localStorage.setItem('auth', JSON.stringify({ username, accessToken, refreshToken }));
+      navigate('/homepage');
     } catch (err) {
       setError(err.message);
     }
@@ -111,7 +127,7 @@ export default function LoginAndSignUp() {
 
           <button type="submit" className="btn primary">Sign In</button>
         </form>
-        <GoogleSignInButton onClick={handleGoogleSignIn}/>
+        <GoogleSignInButton onClick={handleGoogleClick}/>
 
         <div className="divider"><span>or</span></div>
 
