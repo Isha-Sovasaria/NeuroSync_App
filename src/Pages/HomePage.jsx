@@ -121,7 +121,7 @@ export default function HomePage({ userName = 'Friend' }) {
 />
           {/* speech bubble still centered next to it */}
           <div className="speech-bubble">
-            Hey there <strong>{userName}</strong>!<br />
+            Hey there!<br />
             How are you feeling today?
           </div>
         </div>

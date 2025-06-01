@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth }          from "firebase/auth";
 import { onIdTokenChanged } from "firebase/auth";
 import { setTokens, clearAuth } from "./store/authSlice"; 
-import store from "./store/store";  
+import store from "./store/store.js";  
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
