@@ -24,8 +24,6 @@ export default function HomePage({ userName = 'Friend' }) {
     )
       .then((res) => res.json())
       .then((data) => {
-        // The API returns an object; the quotes are in data.rows
-        // Each row has a `row` field containing a `quote` and an `author`
         if (data && Array.isArray(data.rows)) {
           const quotesArray = data.rows.map((entry) => {
             return {
@@ -34,8 +32,6 @@ export default function HomePage({ userName = 'Friend' }) {
             };
           });
           setAllQuotes(quotesArray);
-
-          // 2️⃣ Once we have the full array, pick a deterministic "quote of the day"
           pickTodaysQuote(quotesArray);
         }
       })
@@ -61,37 +57,32 @@ export default function HomePage({ userName = 'Friend' }) {
 
   const handleClick = (emotion) => {
     setSelected(emotion);
-    console.log(`📝 User feels: ${emotion}`);
-    // TODO: send to your backend/api here
+    console.log(`User feels: ${emotion}`);
+    // TODO: send to backend/api here
   };
 
   const goChat = () => {
-    // replace with your chat route or external URL
+    // replace with the chat route or external URL
     window.location.href = '/chat';
   };
 
   const goProfile = () => {
-    // replace with your profile route
+    // need to replace with profile route
     window.location.href = '/profile';
   };
 
   return (
     <div className="home-page">
       <header className="nav">
-        {/* NeuroSync logo on the left */}
         <div className="logo-container">
-        <img
-  src="/app_logo.png"
-  alt="NeuroSync"
-  className="logo-large"
-/>
-
+          <img src="/app_logo.png" className="logo-large" alt="NeuroSync" />
         </div>
 
         <nav className="nav-links">
           <a href="#mood">Mood Map</a>
           <a href="#meditate">Guided Meditation</a>
           <a href="#journal">Daily Journal</a>
+          <a href="#chatbot">Chat With Molly</a>
           <a href="#forum">Discussion Forum</a>
           <a href="#help">Get Help</a>
         </nav>
@@ -103,7 +94,13 @@ export default function HomePage({ userName = 'Friend' }) {
         </div>
       </header>
 
-      <main className="main-content">
+      <main className="main-content" style={{
+        backgroundImage: 'url(/waves_canva.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}>
+
         {/* ===== Quote-of-the-day Banner ===== */}
         {todayQuote.text && (
           <section className="quote-section">
@@ -113,12 +110,11 @@ export default function HomePage({ userName = 'Friend' }) {
         )}
 
         <div className="hero">
-          {/* dolphin on the left now */}
           <img
-  src="/clear_dolphin.png"
-  alt="Dolphin mascot"
-  className="dolphin"
-/>
+            src="/orbital.png"
+            alt="Dolphin mascot"
+            className="dolphin"
+          />
           {/* speech bubble still centered next to it */}
           <div className="speech-bubble">
             Hey there!<br />
