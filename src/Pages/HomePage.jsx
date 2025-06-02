@@ -111,11 +111,10 @@ export default function HomePage({ userName = 'Friend' }) {
 
         <div className="hero">
           <img
-            src="/orbital.png"
+            src="/clear_dolphin.png"
             alt="Dolphin mascot"
             className="dolphin"
           />
-          {/* speech bubble still centered next to it */}
           <div className="speech-bubble">
             Hey there!<br />
             How are you feeling today?

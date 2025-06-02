@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 0.2rem;
+  padding: 1rem 1rem;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  z-index: 50;
+  z-index: 50; /* Higher than nav to appear on top */
 }
 
 .logo-large {
@@ -44,9 +44,9 @@
   width: auto;
   transition: transform 0.2s ease;
   position: relative;
-  top: -50px;
+  top: -50px; /* Move logo up to extend beyond nav bar */
   margin-bottom: -100px;
-  margin-left: -90px;
+  margin-left: -70px;
 }
 
 .logo-large:hover {
@@ -55,11 +55,9 @@
 
 .nav-links {
   display: flex;
-  white-space: nowrap;
-  flex-wrap: nowrap;
   flex: 1;
-  justify-content: flex-start;
-  gap: 1.2rem;
+  justify-content: center;
+  gap: 2.0rem;
   margin: 0 2rem;
 }
 
@@ -68,7 +66,7 @@
   color: #4a5568;
   font-weight: 500;
   font-size: 0.85rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.4rem;
   border-radius: 8px;
   transition: all 0.3s ease;
   position: relative;
@@ -124,12 +122,7 @@
   min-height: calc(100vh - 100px);
   position: relative;
   overflow: hidden;
-  padding-top: 60px;
-}
-
-/* Background*/
-.main-content::before {
-    display: none;
+  padding-top: 60px; /* Add space at top to account for larger logo */
 }
 
 /* Quote Section */
@@ -144,7 +137,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
   z-index: 10;
-  margin-top: -20px;
+  margin-top: -5px;
 }
 
 .quote-text {
@@ -169,7 +162,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
   margin: 3rem 0;
   position: relative;
   z-index: 10;
@@ -187,12 +179,12 @@
 }
 
 .dolphin {
-  width: 330px;
-  height: 200px;
-  margin-top: 0px;
-  margin-left: -20px;
-  animation: float 3s ease-in-out infinite;
+  width: 750px;
+  height: auto;
+  animation: float 4s ease-in-out infinite;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  margin-left: -450px;
+  margin-top: -0px;
 }
 
 /* Speech bubble */
@@ -203,14 +195,16 @@
   border-radius: 20px;
   padding: 1.5rem 2rem;
   font-family: 'Poppins', sans-serif;
-  font-size: 2.4rem;
+  font-size: 1.7rem;
   font-weight: 500;
   line-height: 1.4;
   text-align: center;
-  position: relative;
+  position: absolute;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  margin-right: 50px;
   color: #374151;
+  margin-top: -170px;
+  margin-left: 320px;
+  min-width: 450px;
 }
 
 .speech-bubble::after {
@@ -245,7 +239,7 @@
   padding: 0 2rem;
   position: relative;
   z-index: 10;
-  margin-bottom: 70px;
+  margin-top: -200px;
 }
 
 .emotion-btn {
@@ -382,8 +376,6 @@
   }
   
   .dolphin {
-    width: 150px;
-    margin-top: 490px;
-    margin-bottom: 10px;
+    width: 250px;
   }
 }
