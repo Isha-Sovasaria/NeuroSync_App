@@ -44,7 +44,6 @@
   overflow: visible;
 }
 
-/* 1. Keep the wrapper positioned relative so that the tagline can sit on top of the logo. */
 .logo-wrapper {
   position: absolute;
   display: flex;
@@ -52,8 +51,6 @@
   align-items: center;
   width: 100%;
 }
-
-/* 2. Do NOT absolutely position the logo itself—let it act as the “base” for .tagline. */
 .logo-img {
   width: 1200px;
   height: auto;
@@ -66,7 +63,6 @@
   transform: scale(1.02);
 }
 
-/* 3. Center the tagline perfectly over the logo */
 .tagline {
   position: absolute;
   margin-top: 0rem;
@@ -79,9 +75,6 @@
   padding: 0.2rem 1rem;
   backdrop-filter: blur(10px);
 }
-
-/* 4. Now place the dolphin image beneath the logo-wrapper */
-/* dolphin animation */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(-1deg); }
   50% { transform: translateY(-10px) rotate(1deg); }
@@ -382,12 +375,11 @@
   font-size: 0.9rem;
 }
 
-/* Extra links */
+
 .extra-links {
   margin-top: 1rem;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .parent-container {
     flex-direction: column;

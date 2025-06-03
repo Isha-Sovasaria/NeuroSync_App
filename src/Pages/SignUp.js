@@ -12,6 +12,7 @@ import LeftLogo from '../Components/LeftLogo';
 import { signOut, sendEmailVerification } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,7 +50,7 @@ export default function SignUp() {
       await signOut(auth);
       navigate('/', {
         state: {
-          info: '✅ Verification email sent. Please check your inbox and click the link before logging in.',
+          info: 'Please check your inbox and verify your email.Then proceed to log in.',
         },
       });
     } catch (err) {

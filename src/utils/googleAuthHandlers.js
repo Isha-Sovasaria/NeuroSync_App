@@ -1,6 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
-import { setUsername, setPassword, setTokens } from '../store/authSlice';
+import { setUsername, setTokens } from '../store/authSlice';
 
 export const handleGoogleSignIn = async (dispatch, setError,navigate) => {
   setError(null);
@@ -13,7 +13,6 @@ export const handleGoogleSignIn = async (dispatch, setError,navigate) => {
     const refreshToken = user.refreshToken;
 
     dispatch(setUsername(user.email));
-    dispatch(setPassword(''));
     dispatch(setTokens({ accessToken, refreshToken }));
 
     localStorage.setItem(
@@ -23,6 +22,5 @@ export const handleGoogleSignIn = async (dispatch, setError,navigate) => {
     navigate('/homepage');
   } catch (err) {
     setError(err.message);
-    return { success: false };
   }
 };

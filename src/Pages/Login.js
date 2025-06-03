@@ -8,7 +8,6 @@ import { auth } from '../firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import {
   setUsername as setUsernameAction,
-  setPassword as setPasswordAction,
   setTokens,
 } from '../store/authSlice';
 import { handleGoogleSignIn } from '../utils/googleAuthHandlers';
@@ -19,7 +18,8 @@ import '../StylingAndLayout/LoginAndSignUp.css';
 import GoogleSignInButton from '../Components/GoogleSignInButton';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 export default function Login() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -32,7 +32,11 @@ export default function Login() {
   const handleGoogleClick = () => {
     handleGoogleSignIn(dispatch, setError, navigate); // pass it in
   };
-
+  useEffect(() => {
+    if (signupInfo) {
+      toast(signupInfo);
+    }
+  }, [signupInfo]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -41,6 +45,7 @@ export default function Login() {
       const { user } = await signInWithEmailAndPassword(auth, username, password);
       await user.reload();
       if (!user.emailVerified) {
+        console.log(user);
         await signOut(auth);
         setError('🚫 Please verify your email before logging in.');
         return;
@@ -49,12 +54,23 @@ export default function Login() {
       const refreshToken = user.refreshToken;
 
       dispatch(setUsernameAction(username));
-      dispatch(setPasswordAction(password));
       dispatch(setTokens({ accessToken, refreshToken }));
       localStorage.setItem('auth', JSON.stringify({ username, accessToken, refreshToken }));
       navigate('/homepage');
     } catch (err) {
-      setError(err.message);
+      if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+        setError('❌ Invalid email or password. Please try again.');
+      } else if (err.code === 'auth/too-many-requests') {
+        setError('⚠️ Too many failed login attempts. Try again later.');
+      } else if (err.code === 'auth/invalid-email') {
+        setError('❌ Invalid email format. Please enter a valid email address.');
+      }
+      else if (err.code === 'auth/invalid-credential') {
+        setError('❌ Login failed. Invalid credentials. Please try again.');
+      }
+      else {
+        setError(err.message); // default message for any other errors
+      }
     }
   };
 
@@ -66,7 +82,7 @@ export default function Login() {
   
     try {
       await sendPasswordResetEmail(auth, username);
-      alert('Password reset email sent! Check your inbox.');
+      toast.info('Password reset email sent! Check your inbox.');
     } catch (err) {
       setError(err.message);
     }
@@ -116,14 +132,17 @@ export default function Login() {
               {showPassword ? '🙈' : '👁️'}
             </span>
           </div>
-
-          <div
-  className="forgot-password"
+          <span
   onClick={handleForgotPassword}
-  style={{ cursor: 'pointer', color: '#007BFF', textDecoration: 'underline' }}
+  className="forgot-password"
+  style={{
+    cursor: 'pointer',
+    color: '#007BFF',
+    textDecoration: 'underline',
+  }}
 >
   Forgot Password?
-</div>
+</span>
 
           <button type="submit" className="btn primary">Sign In</button>
         </form>

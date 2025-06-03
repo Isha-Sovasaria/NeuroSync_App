@@ -15,15 +15,23 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const auth      = getAuth(app);
+export const auth= getAuth(app);
 
 onIdTokenChanged(auth, async (user) => {
     if (user) {
       const accessToken = await user.getIdToken();
       const { refreshToken } = user.stsTokenManager;
       store.dispatch(setTokens({ accessToken, refreshToken }));
+      const stored = JSON.parse(localStorage.getItem('auth')) || {};
+      const updated = {
+        ...stored,
+        accessToken,
+        refreshToken,
+      };
+      localStorage.setItem('auth', JSON.stringify(updated));
     } else {
       store.dispatch(clearAuth());
+      localStorage.removeItem('auth');
     }
   });
 

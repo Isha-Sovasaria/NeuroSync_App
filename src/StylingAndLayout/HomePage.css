@@ -14,7 +14,7 @@
   position: relative;
 }
 
-/* Navigation Bar */
+
 .nav {
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  z-index: 50; /* Higher than nav to appear on top */
+  z-index: 50; 
 }
 
 .logo-large {
@@ -44,7 +44,7 @@
   width: auto;
   transition: transform 0.2s ease;
   position: relative;
-  top: -50px; /* Move logo up to extend beyond nav bar */
+  top: -50px;
   margin-bottom: -100px;
   margin-left: -70px;
 }
@@ -117,7 +117,7 @@
   box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
 }
 
-/* Main Content */
+
 .main-content {
   min-height: calc(100vh - 100px);
   position: relative;
@@ -125,7 +125,6 @@
   padding-top: 60px; /* Add space at top to account for larger logo */
 }
 
-/* Quote Section */
 .quote-section {
   max-width: 900px;
   margin: 1.7rem auto;
@@ -157,7 +156,6 @@
   color: #6b7280;
 }
 
-/* Hero section */
 .hero {
   display: flex;
   align-items: center;
@@ -167,7 +165,6 @@
   z-index: 10;
 }
 
-/* Dolphin animation */
 @keyframes bobUp {
   0% { transform: translateY(0px) rotate(-2deg); }
   100% { transform: translateY(-15px) rotate(2deg); }
@@ -187,7 +184,6 @@
   margin-top: -0px;
 }
 
-/* Speech bubble */
 .speech-bubble {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
@@ -229,7 +225,6 @@
   border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;
 }
 
-/* Emotion grid */
 .emotions-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -298,7 +293,6 @@
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
-/* Chat button */
 .chat-btn {
   display: block;
   margin: 3rem auto 2rem;
@@ -341,7 +335,6 @@
   box-shadow: 0 10px 35px rgba(6, 182, 212, 0.4);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;

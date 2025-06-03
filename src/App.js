@@ -21,7 +21,6 @@ function App() {
 
     if (authData && authData.accessToken && authData.username) {
       dispatch(setUsername(authData.username));
-      dispatch(setPassword(authData.password || '')); // fallback if password isn't stored
       dispatch(
         setTokens({
           accessToken: authData.accessToken,
