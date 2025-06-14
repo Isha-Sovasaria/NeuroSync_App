@@ -6,11 +6,12 @@ import SignUp from './Pages/SignUp';
 import HomePage from './Pages/HomePage';
 import { useEffect} from 'react';
 import { useDispatch } from 'react-redux';
+import ChatBot from './Components/ChatBot';
 import {
   setUsername ,
-  setPassword,
   setTokens,
 } from './store/authSlice';
+
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/homepage" element={<HomePage/>} />
+        <Route path="/ChatBot" element={<ChatBot/>}/>
       </Routes>
     </Router>
   );

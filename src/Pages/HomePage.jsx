@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../StylingAndLayout/HomePage.css';
-
+import { useNavigate } from 'react-router-dom';
 const EMOTIONS = [
   { label: 'Happy',    emoji: '😊' },
   { label: 'Sad',      emoji: '😢' },
@@ -12,7 +12,7 @@ const EMOTIONS = [
 
 export default function HomePage({ userName = 'Friend' }) {
   const [selected, setSelected] = useState(null);
-
+  const navigate=useNavigate();
   // Holds the list of quotes fetched from the Hugging Face dataset
   const [allQuotes, setAllQuotes] = useState([]);
   // Holds the single quote object we'll display today
@@ -62,8 +62,7 @@ export default function HomePage({ userName = 'Friend' }) {
   };
 
   const goChat = () => {
-    // replace with the chat route or external URL
-    window.location.href = '/chat';
+   navigate("/ChatBot");
   };
 
   const goProfile = () => {
